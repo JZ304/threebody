@@ -36,4 +36,7 @@ Route::middleware('auth:api')->group(function () {
 
     // 用户余额增加
     Route::post('user_income', 'Me\MeController@income');
+
+    // 测试redis
+
 });
