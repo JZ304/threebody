@@ -25,14 +25,11 @@ class Events
 
     public static function onMessage($client_id, $message)
     {
-        logger('[1][onMessage]客户端:' . $client_id . '发送信息:' . $message);
+        logger('[2][onMessage]客户端:' . $client_id . '发送信息:' . $message);
         $message = json_decode($message);
-        logger($message);
-        logger('event'.$message['event']);
-        if($message['event'] == 'login'){
-            $tel = $message['tel'];
+        if($message->event == 'login'){
+            $tel = $message->tel;
             logger('tel:'.$tel);
-            logger('event'.$message['event']);
             UserModel::query()->where('tel',$tel)->update(['client_id' => $client_id]);
         }else{
             // 其它业务暂不处理
