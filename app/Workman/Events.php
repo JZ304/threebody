@@ -25,10 +25,11 @@ class Events
 
     public static function onMessage($client_id, $message)
     {
-        logger('[onMessage]客户端:' . $client_id . '发送信息:' . $message);
+        logger('[1][onMessage]客户端:' . $client_id . '发送信息:' . $message);
         $message = json_decode($message);
+        logger($message);
         logger('event'.$message['event']);
-        if($message['type'] == 'login'){
+        if($message['event'] == 'login'){
             $tel = $message['tel'];
             logger('tel:'.$tel);
             logger('event'.$message['event']);
