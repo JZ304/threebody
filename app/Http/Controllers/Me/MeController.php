@@ -9,6 +9,7 @@ use App\Models\UserModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -144,6 +145,9 @@ class MeController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     */
     public function income(Request $request)
     {
         $user = $this->getUserInfo();
@@ -154,4 +158,13 @@ class MeController extends Controller
         event(new income($money));
     }
 
+
+    public function pushMessage(Request $request)
+    {
+        $tel = '13880614578';
+        $client_id = 'ds4a65f46asf6a45f5s6af4a65f45s';
+        DB::connection()->enableQueryLog();#开启执行日志
+        $sql = UserModel::query()->where('tel',$tel)->update(['client_id' => $client_id]);
+        logger(DB::getQueryLog());   //获取查询语句、参数和执行时间
+    }
 }
