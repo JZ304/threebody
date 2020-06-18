@@ -27,7 +27,7 @@ class UserModel extends Authenticatable implements JWTSubject
      * 隐藏字段
      * @var array
      */
-    protected $hidden = ['password', 'created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['password', 'created_at', 'updated_at', 'deleted_at','client_id'];
 
     /**
      * 数据库时间格式

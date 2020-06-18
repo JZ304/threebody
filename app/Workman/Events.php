@@ -27,11 +27,15 @@ class Events
     {
         logger('[onMessage]客户端:' . $client_id . '发送信息:' . $message);
         $message = json_decode($message);
+        logger('event'.$message['event']);
         if($message['type'] == 'login'){
             $tel = $message['tel'];
+            logger('tel:'.$tel);
+            logger('event'.$message['event']);
             UserModel::query()->where('tel',$tel)->update(['client_id' => $client_id]);
         }else{
             // 其它业务暂不处理
+            logger('其它业务暂不处理');
         }
     }
 
