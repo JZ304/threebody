@@ -40,4 +40,7 @@ Route::middleware('auth:api')->group(function () {
     // 长连接
     Route::post('push_message','Me\MeController@pushMessage');
 
+    // excel导入图片
+    Route::post('importGoods', 'Me\MeController@importGoods');
+
 });
