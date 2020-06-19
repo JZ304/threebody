@@ -6,6 +6,7 @@ use App\Events\income;
 use App\Jobs\disposeApply;
 use App\Models\ApplyModel;
 use App\Models\UserModel;
+use GatewayWorker\Lib\Gateway;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -152,7 +153,7 @@ class MeController extends Controller
     {
         $user = $this->getUserInfo();
         $money = $request->money;
-        if(is_null($money) || $money <= 0 ) apiFail('金额错误');
+        if (is_null($money) || $money <= 0) apiFail('金额错误');
 
         // 触发事件
         event(new income($money));
@@ -161,10 +162,9 @@ class MeController extends Controller
 
     public function pushMessage(Request $request)
     {
-        $tel = '13880614578';
-        $client_id = 'ds4a65f46asf6a45f5s6af4a65f45s';
-        DB::connection()->enableQueryLog();#开启执行日志
-        $sql = UserModel::query()->where('tel',$tel)->update(['client_id' => $client_id]);
-        logger(DB::getQueryLog());   //获取查询语句、参数和执行时间
+        $tel = $request->tel;
+        $message = $request->message;
+        Gateway::sendToUid($tel, $message);
+        apiSuccess('信息已发送');
     }
 }
