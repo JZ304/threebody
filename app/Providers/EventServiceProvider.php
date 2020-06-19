@@ -23,7 +23,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\register' => [
             'App\Listeners\userRegister',
-        ]
+        ],
+        'Illuminate\Database\Events\QueryExecuted' => [
+            'App\Listeners\QueryListener',
+        ],
     ];
 
     /**
