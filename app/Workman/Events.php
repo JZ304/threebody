@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redis;
 
 class Events
 {
+
     // workman 监听
     public static function onWorkerStart($businessWorker)
     {
@@ -31,6 +32,8 @@ class Events
         if($message->event == 'login'){
             $tel = $message->tel;
             logger('TEL:'.$tel.';Client_id:'.$client_id);
+            $class = new UserModel();
+            var_dump($class);
             UserModel::where('tel',$tel)->update(['client_id' => $client_id]);
         }else{
             // 其它业务暂不处理
